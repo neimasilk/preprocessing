@@ -18,9 +18,10 @@ print(output)
 print(stemmer.stem('Mereka meniru-nirukannya'))
 # mereka tiru
 
+def stem_amien(text):
 # per@ an@ ekonomi indonesia sedang dalam per@ an@ tumbuh yang mem@ kan@ bangga.
 
 # mereka plu@ me@ kan@ nya@ tiru
 
 # buat daftar dictionary untuk menggabungkan. pelajari sastrawi selama seminggu
-
+    pass
