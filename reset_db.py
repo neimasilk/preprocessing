@@ -15,10 +15,8 @@ class ResetDb(object):
         `tok_en_zhcn`	TEXT
     ); """
 
-    def __init__(self,f_data ="test_db.db", f_loc ="./"):
-        self.file_location = f_loc
-        self.file_data = f_data
-        self.filepath= f_loc + f_data
+    def __init__(self,f_data ="test_db.db"):
+        self.filepath= f_data
         try:
             self._db_connection = sqlite3.connect(self.filepath)
             self._db_cur = self._db_connection.cursor()
@@ -30,7 +28,12 @@ class ResetDb(object):
 
 
     def create_id_zhcn(self):
-        self.query(self.sql_create_id_zhcn_table)
+        try:
+            self._db_connection = sqlite3.connect(self.filepath)
+            self._db_cur = self._db_connection.cursor()
+            self.query(self.sql_create_id_zhcn_table)
+        except Error as e:
+            print(e)
 
     def clear_id_zhcn(self):
         sql_count = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='id_zhcn';"
