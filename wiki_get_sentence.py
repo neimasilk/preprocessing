@@ -111,9 +111,8 @@ class WikiGetSentence(object):
 if __name__ == '__main__':
     count_id = 408734
     sumber = 'wiki_id'
-    ukuran = 10
     max_sentence_length = 80
-    sentences_count = 2000000
+    sentences_count = 10
     wikiget = WikiGetSentence()
     # b = wikiget.generate_id(max_sentence_length,sentences_count)
     b = wikiget.generate_id(max_sentence_length,sentences_count)
