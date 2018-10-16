@@ -1,5 +1,12 @@
 
 import googletrans
+import sqlite3
+
+#         try:
+#             self._db_connection = sqlite3.connect(self.filepath)
+#             self._db_cur = self._db_connection.cursor()
+#         except Error as e:
+#             print(e)
 
 translator = googletrans.Translator()
 text = 'ini adalah percobaan translasi'
