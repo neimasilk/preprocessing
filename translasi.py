@@ -1,34 +1,68 @@
-import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/home/mukhlis/seq2seq-e71dee1db5ca.json"
-import urllib.request as urllib2
-from google.cloud import translate
-import goslate
+import sys
+import re
 
-proxy_handler = urllib2.ProxyHandler({"http" : "http://173.161.17.93:44251"})
-proxy_opener = urllib2.build_opener(urllib2.HTTPHandler(proxy_handler),
-                                    urllib2.HTTPSHandler(proxy_handler))
+if (sys.version_info[0] < 3):
+    import urllib2
+    import urllib
+    import HTMLParser
+else:
+    import html.parser
+    import urllib.request
+    import urllib.parse
 
-gs_with_proxy = goslate.Goslate(opener=proxy_opener)
-translation = gs_with_proxy.translate("hello world", "de")
+agent = {'User-Agent':
+"Mozilla/4.0 (\
+compatible;\
+MSIE 6.0;\
+Windows NT 5.1;\
+SV1;\
+.NET CLR 1.1.4322;\
+.NET CLR 2.0.50727;\
+.NET CLR 3.0.04506.30\
+)"}
 
-translate_client = translate.Client()
 
-def translasi_googkey(text,source,target):
-    translation = translate_client.translate(
-        text,
-        target_language=target, source_language=source)
-    return translation['translatedText']
+def unescape(text):
+    if (sys.version_info[0] < 3):
+        parser = HTMLParser.HTMLParser()
+    else:
+        parser = html.parser.HTMLParser()
+    return (parser.unescape(text))
 
-def translasi_proxy(text,source,target,proxy='',service='https://translate.google.com'):
-    gs = goslate.Goslate(opener=proxy_opener, service_urls=[service])
-    # gs = goslate.Goslate()
-    if proxy=='':
-        hasil = gs.translate(text,target,source)
-    return hasil
+
+def translate(to_translate, to_language="auto", from_language="auto",proxes={}):
+    """Returns the translation using google translate
+    you must shortcut the language you define
+    (French = fr, English = en, Spanish = es, etc...)
+    if not defined it will detect it or use english by default
+    Example:
+    print(translate("salut tu vas bien?", "en"))
+    hello you alright?
+    """
+    if proxes!={}:
+        proxy = urllib.request.ProxyHandler(proxes)
+        opener = urllib.request.build_opener(proxy)
+        urllib.request.install_opener(opener)
+    base_link = "http://translate.google.com/m?hl=%s&sl=%s&q=%s"
+    if (sys.version_info[0] < 3):
+        to_translate = urllib.quote_plus(to_translate)
+        link = base_link % (to_language, from_language, to_translate)
+        request = urllib2.Request(link, headers=agent)
+        raw_data = urllib2.urlopen(request).read()
+    else:
+        to_translate = urllib.parse.quote(to_translate)
+        link = base_link % (to_language, from_language, to_translate)
+        request = urllib.request.Request(link, headers=agent)
+        raw_data = urllib.request.urlopen(request).read()
+    data = raw_data.decode("utf-8")
+    expr = r'class="t0">(.*?)<'
+    re_result = re.findall(expr, data)
+    if (len(re_result) == 0):
+        result = ""
+    else:
+        result = unescape(re_result[0])
+    return (result)
 
 if __name__ == '__main__':
-    # print(translasi_googkey('percobaan','id','en'))
-    try:
-        print(translasi_proxy('percobaan goslate','id','en','','http://translate.google.com'))
-    except:
-        print('terjadi kesalahan')
+    proksi ={'http':'http://38.128.236.229:3128'}
+    print(translate('percobaan','en','id',proksi))
