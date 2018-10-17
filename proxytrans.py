@@ -1,5 +1,3 @@
-import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/home/mukhlis/seq2seq-e71dee1db5ca.json"
 import urllib.request as urllib2
 import goslate
 
