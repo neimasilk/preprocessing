@@ -77,13 +77,15 @@ def findproxy():
     for proxy in proxies:
         prox_dict = {"http": proxy}
         try:
-            translate_proxy("percobaan",'id','en',prox_dict)
+            # translator = googletrans.Translator(proxies=prox_dict)  # type: string
+            item = "ini adalah percobaan"
+            translation = translate_proxy(item, "en", 'id', prox_dict)
 
         except:
             print(proxy)
             continue
 
-        # print(translation)
+        print(translation)
         return prox_dict
 
 filepath = 'indonesia_sentences_10.db'
@@ -107,25 +109,25 @@ print("ini adalah proxynya : {}".format(proksi))
 print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
 
 for id in textnya:
-    if (id[2] == None) or (id[3] == None):
+    if (id[2] == None) or (id[3]==None):
         idnya = id[0]
         teks = id[1]
         while True:
             try:
-                if (id[2] == None):
-                    artinya = translate_proxy(teks, 'id', 'en', proksi)
+                if (id[2]==None):
+                    artinya=translate_proxy(teks,'id','en',proksi)
                 else:
                     artinya = id[2]
 
-                if (id[3] == None):
-                    articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
+                if (id[3]==None):
+                    articn = translate_proxy(artinya,'en','zh-CN',proksi)
                 else:
                     articn = id[3]
             except:
                 proksi = findproxy()
                 continue
             break
-        db_cur.execute(sql, [artinya, articn, idnya])
+        db_cur.execute(sql,[artinya,articn,idnya])
         db_connection.commit()
         print(idnya)
 
