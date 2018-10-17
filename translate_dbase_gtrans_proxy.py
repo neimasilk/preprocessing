@@ -1,8 +1,6 @@
 import googletrans
 import sqlite3
 
-from googletrans import Translator
-
 
 def findproxy():
     with open('proxies.txt', "r") as f:

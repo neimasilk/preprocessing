@@ -63,6 +63,28 @@ def translate(to_translate, to_language="auto", from_language="auto",proxes={}):
         result = unescape(re_result[0])
     return (result)
 
+def findproxy():
+    with open('proxies.txt', "r") as f:
+        array = []
+        for line in f:
+            array.append(line)
+        proxies = []
+    for alamat in array:
+        proxies.append('http://' + alamat.split()[-1].replace('>', ''))
+
+    del array
+    for proxy in proxies:
+        prox_dict = {"http": proxy}
+        try:
+            translate("percobaan",'en','id',prox_dict)
+
+        except:
+            print(proxy)
+            continue
+
+        print(translation)
+        return prox_dict
+
 if __name__ == '__main__':
-    proksi ={'http':'http://38.128.236.229:3128'}
-    print(translate('percobaan','en','id',proksi))
+    proksi =findproxy()
+    print(translate('ini memakai proxy','en','id',proksi))
