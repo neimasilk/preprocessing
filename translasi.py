@@ -86,93 +86,47 @@ def findproxy():
         # print(translation)
         return prox_dict
 
-    filepath = 'indonesia_sentences_10.db'
-    try:
-        db_connection = sqlite3.connect(filepath)
-        db_cur = db_connection.cursor()
-    except Error as e:
-        print(e)
+filepath = 'indonesia_sentences_10.db'
+try:
+    db_connection = sqlite3.connect(filepath)
+    db_cur = db_connection.cursor()
+except Error as e:
+    print(e)
 
-    sentences = []
-    db_cur.execute(
-        "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_en_id is NULL) or (text_zhcn is NULL) ")
-    textnya = db_cur.fetchall()
+sentences = []
+db_cur.execute(
+    "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_en_id is NULL) or (text_zhcn is NULL) ")
+textnya = db_cur.fetchall()
 
-    sql = ''' UPDATE id_zhcn
-              SET text_en_id = ?, text_zhcn=?
-              WHERE id = ? '''
+sql = ''' UPDATE id_zhcn
+          SET text_en_id = ?, text_zhcn=?
+          WHERE id = ? '''
 
-    proksi = findproxy()
-    print("ini adalah proxynya : {}".format(proksi))
-    print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
+proksi = findproxy()
+print("ini adalah proxynya : {}".format(proksi))
+print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
 
-    for id in textnya:
-        if (id[2] == None) or (id[3] == None):
-            idnya = id[0]
-            teks = id[1]
-            while True:
-                try:
-                    if (id[2] == None):
-                        artinya = translate_proxy(teks, 'id', 'en', proksi)
-                    else:
-                        artinya = id[2]
+for id in textnya:
+    if (id[2] == None) or (id[3] == None):
+        idnya = id[0]
+        teks = id[1]
+        while True:
+            try:
+                if (id[2] == None):
+                    artinya = translate_proxy(teks, 'id', 'en', proksi)
+                else:
+                    artinya = id[2]
 
-                    if (id[3] == None):
-                        articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
-                    else:
-                        articn = id[3]
-                except:
-                    proksi = findproxy()
-                    continue
-                break
-                db_cur.execute(sql, [artinya, articn, idnya])
-            db_connection.commit()
-            print(idnya)
+                if (id[3] == None):
+                    articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
+                else:
+                    articn = id[3]
+            except:
+                proksi = findproxy()
+                continue
+            break
+        db_cur.execute(sql, [artinya, articn, idnya])
+        db_connection.commit()
+        print(idnya)
 
-    db_connection.close()
-
-if __name__ == '__main__':
-    filepath = 'indonesia_sentences_10.db'
-    try:
-        db_connection = sqlite3.connect(filepath)
-        db_cur = db_connection.cursor()
-    except Error as e:
-        print(e)
-
-    sentences = []
-    db_cur.execute(
-        "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_en_id is NULL) or (text_zhcn is NULL) ")
-    textnya = db_cur.fetchall()
-
-    sql = ''' UPDATE id_zhcn
-              SET text_en_id = ?, text_zhcn=?
-              WHERE id = ? '''
-
-    proksi = findproxy()
-    print("ini adalah proxynya : {}".format(proksi))
-    print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
-
-    for id in textnya:
-        if (id[2] == None) or (id[3] == None):
-            idnya = id[0]
-            teks = id[1]
-            while True:
-                try:
-                    if (id[2] == None):
-                        artinya = translate_proxy(teks, 'en', 'id', proksi)
-                    else:
-                        artinya = id[2]
-
-                    if (id[3] == None):
-                        articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
-                    else:
-                        articn = id[3]
-                except:
-                    proksi = findproxy()
-                    continue
-                break
-            db_cur.execute(sql, [artinya, articn, idnya])
-            db_connection.commit()
-            print(idnya)
-
-    db_connection.close()
+db_connection.close()
