@@ -18,12 +18,6 @@ sentences = []
 db_cur.execute("select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_en_id is NULL) or (text_zhcn is NULL) ")
 textnya = db_cur.fetchall()
 
-def translasi_googkey(text,source,dest):
-    pass
-
-def translasi_proxy(text,source,dest,proxy):
-    pass
-
 
 
 sql = ''' UPDATE id_zhcn
