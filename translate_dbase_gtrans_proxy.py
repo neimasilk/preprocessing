@@ -63,7 +63,7 @@ for id in textnya:
         while True:
             try:
                 if (id[2]==None):
-                    artinya=translate_proxy(teks,'en','id',proksi)
+                    artinya=translate_proxy(teks,'id','en',proksi)
                 else:
                     artinya = id[2]
 
