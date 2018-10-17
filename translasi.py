@@ -82,7 +82,7 @@ def findproxy():
             print(proxy)
             continue
 
-        print(translation)
+        # print(translation)
         return prox_dict
 
 if __name__ == '__main__':
