@@ -1,5 +1,6 @@
-import googletrans
+import goslate
 import sqlite3
+import urllib
 
 
 def findproxy():
@@ -12,27 +13,31 @@ def findproxy():
         proxies.append('http://' + alamat.split()[-1].replace('>', ''))
 
     del array
-    for proxy in proxies:
-        prox_dict = {"http": proxy}
+    for proks in proxies:
+        prox_dict = {"http": proks}
+        proxy = urllib.request.ProxyHandler(prox_dict)
+        opener = urllib.request.build_opener(proxy)
+        urllib.request.install_opener(opener)
         try:
-            translator = googletrans.Translator(proxies=prox_dict)  # type: string
+            translator = goslate.Goslate(opener=opener)
             item = "ini adalah percobaan"
-            translation = translator.translate(item, "en", 'id').text
+            translation = translator.translate(item, "en", 'id')
 
         except:
-            print(proxy)
+            print(proks)
             continue
 
         print(translation)
         return prox_dict
-        
-
 
 
 def translate_proxy(text, source, target, proxy):
-    translator = googletrans.Translator(proxies=proxy)
+    proxy = urllib.request.ProxyHandler(proxy)
+    opener = urllib.request.build_opener(proxy)
+    urllib.request.install_opener(opener)
+    translator = goslate.Goslate(opener=opener)
     item = text
-    translation = translator.translate(item, target, source).text
+    translation = translator.translate(item, target, source)
     return translation
 
 
@@ -57,25 +62,25 @@ print("ini adalah proxynya : {}".format(proksi))
 print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
 
 for id in textnya:
-    if (id[2] == None) or (id[3]==None):
+    if (id[2] == None) or (id[3] == None):
         idnya = id[0]
         teks = id[1]
         while True:
             try:
-                if (id[2]==None):
-                    artinya=translate_proxy(teks,'id','en',proksi)
+                if (id[2] == None):
+                    artinya = translate_proxy(teks, 'id', 'en', proksi)
                 else:
                     artinya = id[2]
 
-                if (id[3]==None):
-                    articn = translate_proxy(artinya,'en','zh-CN',proksi)
+                if (id[3] == None):
+                    articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
                 else:
                     articn = id[3]
             except:
                 proksi = findproxy()
                 continue
             break
-        db_cur.execute(sql,[artinya,articn,idnya])
+        db_cur.execute(sql, [artinya, articn, idnya])
         db_connection.commit()
         print(idnya)
 
