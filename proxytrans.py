@@ -14,15 +14,15 @@ for alamat in array:
 del array
 
 for proxy in proxies:
-    try:
+    # try:
         proxy_handler = urllib2.ProxyHandler({"http" : proxy})
         proxy_opener = urllib2.build_opener(urllib2.HTTPHandler(proxy_handler),
                                         urllib2.HTTPSHandler(proxy_handler))
         gs_with_proxy = goslate.Goslate(opener=proxy_opener)
         translation = gs_with_proxy.translate("hello world", "de")
-    except:
-        print(proxy)
-        continue
-    else:
-        print(translation)
-        break
+    # except:
+    #     print(proxy)
+    #     continue
+    # else:
+    #     print(translation)
+    #     break
