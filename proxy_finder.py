@@ -37,4 +37,4 @@ def find_translate_proxy(proxy_file='proxies.txt'):
 list_working_proxy = find_translate_proxy()
 with open('working_proxy.txt', 'w') as f:
     for item in list_working_proxy:
-        f.write("%s\n" % item)
+        f.write("%s" % item)
