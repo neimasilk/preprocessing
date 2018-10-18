@@ -105,12 +105,9 @@ for id in textnya:
                 wproxies.popleft()
                 if len(wproxies)==0:
                     print("proxy habis!")
-                    p = subprocess.call(shlex.split("proxybroker find --types HTTP --lvl High --countries US CA FR GB DE SG --strict -l 300 -o ./proxies.txt"))
-                    p.wait()
-                    q = subprocess.call(shlex.split("rm -rf working_proxy.txt"))
-                    q.wait()
-                    r = subprocess.call(shlex.split("python proxy_finder.py"))
-                    r.wait()
+                    subprocess.call(shlex.split("proxybroker find --types HTTP --lvl High --countries US CA FR GB DE SG --strict -l 300 -o ./proxies.txt"))
+                    subprocess.call(shlex.split("mv working_proxy.txt working_proxy%s.txt" % idnya))
+                    subprocess.call(shlex.split("python proxy_finder.py"))
                     # exit()
                     with open('working_proxy.txt', "r") as f:
                         for line in f:
