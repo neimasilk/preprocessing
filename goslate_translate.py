@@ -110,10 +110,11 @@ for id in textnya:
                     q = subprocess.call(shlex.split("rm -rf working_proxy.txt"))
                     q.wait()
                     r = subprocess.call(shlex.split("python proxy_finder.py"))
+                    r.wait()
                     # exit()
-                with open('working_proxy.txt', "r") as f:
-                    for line in f:
-                        wproxies.append(line)
+                    with open('working_proxy.txt', "r") as f:
+                        for line in f:
+                            wproxies.append(line)
                 proksi = extract_proxy(wproxies[0])
                 print(proksi)
 
