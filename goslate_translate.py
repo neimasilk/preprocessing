@@ -70,7 +70,7 @@ def extract_proxy(alamat):
 proksi = extract_proxy(wproxies[0])
 print(proksi)
 print("ini adalah proxynya : {}".format(proksi))
-print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
+# print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
 
 for id in textnya:
     if (id[2] == None) or (id[3] == None):
