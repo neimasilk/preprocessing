@@ -2,6 +2,8 @@ import goslate
 import sqlite3
 import urllib
 from collections import deque
+import subprocess
+import shlex
 
 
 # def findproxy():
@@ -103,7 +105,15 @@ for id in textnya:
                 wproxies.popleft()
                 if len(wproxies)==0:
                     print("proxy habis!")
-                    exit()
+                    p = subprocess.call(shlex.split("proxybroker find --types HTTP --lvl High --countries US CA FR GB DE SG --strict -l 300 -o ./proxies.txt"))
+                    p.wait()
+                    q = subprocess.call(shlex.split("rm -rf working_proxy.txt"))
+                    q.wait()
+                    r = subprocess.call(shlex.split("python proxy_finder.py"))
+                    # exit()
+                with open('working_proxy.txt', "r") as f:
+                    for line in f:
+                        wproxies.append(line)
                 proksi = extract_proxy(wproxies[0])
                 print(proksi)
 
