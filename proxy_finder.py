@@ -23,12 +23,13 @@ def find_translate_proxy(proxy_file='proxies.txt'):
             item = "ini adalah percobaan"
             translation = translator.translate(item, "en", 'id')
             working_proxy.append(alamat)
+            print(translation)
 
         except:
             print(alamat)
             continue
 
-    print(translation)
+
     return working_proxy
 
 list_working_proxy = find_translate_proxy()
