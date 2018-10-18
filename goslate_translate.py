@@ -70,18 +70,16 @@ def extract_proxy(alamat):
 
 proksi = extract_proxy(wproxies[0])
 print(proksi)
-print("ini adalah proxynya : {}".format(proksi))
-wproxies.rotate(1)
-proksi = extract_proxy(wproxies[0])
-print(proksi)
 while True:
     try:
         print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
     except Exception as e:
         print(str(e))
-        wproxies.rotate(1)
+        wproxies.popleft()
+        if len(wproxies) == 0:
+            print("proxy habis!")
+            exit()
         proksi = extract_proxy(wproxies[0])
-        print(proksi)
         continue
     break
 
