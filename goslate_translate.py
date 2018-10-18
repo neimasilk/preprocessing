@@ -46,7 +46,7 @@ filepath = 'indonesia_sentences_1000000.db'
 try:
     db_connection = sqlite3.connect(filepath)
     db_cur = db_connection.cursor()
-except Error as e:
+except Exception as e:
     print(e)
 
 sentences = []
