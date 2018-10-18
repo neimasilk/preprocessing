@@ -102,7 +102,7 @@ for id in textnya:
                     articn = id[3]
             except Exception as e:
                 print(str(e))
-                wproxies.rotate(1)
+                wproxies.popleft()
                 proksi = extract_proxy(wproxies[0])
                 print(proksi)
                 continue
