@@ -28,8 +28,8 @@ def find_translate_proxy(proxy_file='proxies.txt'):
             print(alamat)
             continue
 
-        print(translation)
-        return working_proxy
+    print(translation)
+    return working_proxy
 
 list_working_proxy = find_translate_proxy()
 with open('working_proxy.txt', 'w') as f:
