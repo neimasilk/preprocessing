@@ -103,8 +103,12 @@ for id in textnya:
             except Exception as e:
                 print(str(e))
                 wproxies.popleft()
+                if len(wproxies)==0:
+                    print("proxy habis!")
+                    exit()
                 proksi = extract_proxy(wproxies[0])
                 print(proksi)
+
                 continue
             break
         wproxies.rotate(1)
