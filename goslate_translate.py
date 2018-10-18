@@ -58,8 +58,8 @@ sql = ''' UPDATE id_zhcn
           SET text_en_id = ?, text_zhcn=?
           WHERE id = ? '''
 
+wproxies = deque()
 with open('working_proxy.txt', "r") as f:
-    wproxies = deque()
     for line in f:
         wproxies.append(line)
 
@@ -68,6 +68,7 @@ def extract_proxy(alamat):
     return a
 
 proksi = extract_proxy(wproxies[0])
+print(proksi)
 print("ini adalah proxynya : {}".format(proksi))
 print(translate_proxy('ini adalah kata yang akan diterjemahkan', 'id', 'en', proksi))
 
@@ -90,7 +91,7 @@ for id in textnya:
                 print(str(e))
                 continue
             break
-        wproxies.rotate()
+        wproxies.rotate(1)
         proksi = extract_proxy(wproxies[0])
         db_cur.execute(sql, [artinya, articn, idnya])
         db_connection.commit()
