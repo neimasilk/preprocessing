@@ -89,6 +89,8 @@ for id in textnya:
                     articn = id[3]
             except Exception as e:
                 print(str(e))
+                wproxies.rotate(1)
+                proksi = extract_proxy(wproxies[0])
                 continue
             break
         wproxies.rotate(1)
