@@ -64,7 +64,7 @@ with open('working_proxy.txt', "r") as f:
         wproxies.append(line)
 
 def extract_proxy(alamat):
-    a = {'http', 'http://' + alamat.split()[-1].replace('>', '')}
+    a = {"http": 'http://' + alamat.split()[-1].replace('>', '')}
     return a
 
 proksi = extract_proxy(wproxies[0])
