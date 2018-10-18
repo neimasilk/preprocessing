@@ -29,6 +29,7 @@ def find_translate_proxy(proxy_file='proxies.txt'):
         # except:
         #     print(proks)
         #     continue
+    # percobaan
 
 
     return working_proxy
