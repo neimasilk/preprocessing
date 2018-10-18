@@ -6,28 +6,29 @@ def extract_proxy(alamat):
     return 'http://' + alamat.split()[-1].replace('>', '')
 
 def find_translate_proxy(proxy_file='proxies.txt'):
+    array = []
+    working_proxy = []
     with open(proxy_file, "r") as f:  # file proxynya: proxies.txt
-        array = []
-        working_proxy = []
         for line in f:
             array.append(line)
+        f.close()
 
     for alamat in array:
-        proks = extract_proxy(alamat)
-        prox_dict = {"http": proks}
-        proxy = urllib.request.ProxyHandler(prox_dict)
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
-        try:
+        # try:
+            proks = extract_proxy(alamat)
+            prox_dict = {"http": proks}
+            proxy = urllib.request.ProxyHandler(prox_dict)
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
             translator = goslate.Goslate(opener=opener)
             item = "ini adalah percobaan"
             translation = translator.translate(item, "en", 'id')
             working_proxy.append(alamat)
             print(translation)
 
-        except:
-            print(alamat)
-            continue
+        # except:
+        #     print(proks)
+        #     continue
 
 
     return working_proxy
