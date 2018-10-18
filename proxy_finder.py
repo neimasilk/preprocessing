@@ -14,7 +14,7 @@ def find_translate_proxy(proxy_file='proxies.txt'):
         f.close()
 
     for alamat in array:
-        # try:
+        try:
             proks = extract_proxy(alamat)
             prox_dict = {"http": proks}
             proxy = urllib.request.ProxyHandler(prox_dict)
@@ -26,9 +26,9 @@ def find_translate_proxy(proxy_file='proxies.txt'):
             working_proxy.append(alamat)
             print(translation)
 
-        # except:
-        #     print(proks)
-        #     continue
+        except Exception as e:
+            print(str(e))
+            continue
     # percobaan
 
 
