@@ -85,11 +85,12 @@ for id in textnya:
                     articn = translate_proxy(artinya, 'en', 'zh-CN', proksi)
                 else:
                     articn = id[3]
-            except:
-                wproxies.rotate()
-                proksi = extract_proxy(wproxies[0])
+            except Exception as e:
+                print(str(e))
                 continue
             break
+        wproxies.rotate()
+        proksi = extract_proxy(wproxies[0])
         db_cur.execute(sql, [artinya, articn, idnya])
         db_connection.commit()
         print(idnya)
