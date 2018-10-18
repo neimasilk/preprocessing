@@ -2,8 +2,10 @@ import goslate
 # import sqlite3
 import urllib
 
+
 def extract_proxy(alamat):
     return 'http://' + alamat.split()[-1].replace('>', '')
+
 
 def find_translate_proxy(proxy_file='proxies.txt'):
     array = []
@@ -31,8 +33,8 @@ def find_translate_proxy(proxy_file='proxies.txt'):
             continue
     # percobaan
 
-
     return working_proxy
+
 
 list_working_proxy = find_translate_proxy()
 with open('working_proxy.txt', 'w') as f:

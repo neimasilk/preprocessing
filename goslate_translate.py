@@ -109,8 +109,8 @@ for id in textnya:
 
                 continue
             break
-        wproxies.rotate(1)
-        proksi = extract_proxy(wproxies[0])
+        # wproxies.rotate(1)
+        # proksi = extract_proxy(wproxies[0])
         db_cur.execute(sql, [artinya, articn, idnya])
         db_connection.commit()
         print(idnya)
