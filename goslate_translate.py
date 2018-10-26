@@ -5,35 +5,6 @@ from collections import deque
 import subprocess
 import shlex
 
-
-# def findproxy():
-#     with open('proxies.txt', "r") as f:
-#         array = []
-#         for line in f:
-#             array.append(line)
-#         proxies = []
-#     for alamat in array:
-#         proxies.append('http://' + alamat.split()[-1].replace('>', ''))
-#
-#     del array
-#     for proks in proxies:
-#         prox_dict = {"http": proks}
-#         proxy = urllib.request.ProxyHandler(prox_dict)
-#         opener = urllib.request.build_opener(proxy)
-#         urllib.request.install_opener(opener)
-#         try:
-#             translator = goslate.Goslate(opener=opener)
-#             item = "ini adalah percobaan"
-#             translation = translator.translate(item, "en", 'id')
-#
-#         except:
-#             print(proks)
-#             continue
-#
-#         print(translation)
-#         return prox_dict
-
-
 def translate_proxy(text, source, target, proxy):
     proxy = urllib.request.ProxyHandler(proxy)
     opener = urllib.request.build_opener(proxy)
