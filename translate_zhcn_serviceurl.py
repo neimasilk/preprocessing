@@ -77,6 +77,7 @@ for id in textnya:
                 continue
             break
         wservice.rotate(1)
+        servis = wservice[0]
         db_cur.execute(sql, [artinya, artiid, idnya])
         db_connection.commit()
         print(idnya)
