@@ -8,7 +8,7 @@ import shlex
 def translate_service(text, source, target, service=''):
     item = text
     if service=='':
-        a = 'http://translate.google.cn'
+        a = 'https://translate.google.cn'
         translator = goslate.Goslate(service_urls=(a,))
     else:
         translator = goslate.Goslate(service_urls=(service,))
@@ -40,6 +40,18 @@ with open('googledomain.txt', "r") as f:
 
 
 servis = wservice[0]
+print(translate_service('ini adalah kata yang akan diterjemahkan tanpa servis', 'id', 'en'))
+# print(str(servis))
+
+while True:
+    try:
+        print(translate_service('ini adalah kata yang akan diterjemahkan dengan servis', 'id', 'en', servis))
+    except Exception as e:
+        print(str(e))
+        wservice.rotate(1)
+        servis = wservice[0]
+        continue
+    break
 
 for id in textnya:
     if (id[2] == None) or (id[3] == None):

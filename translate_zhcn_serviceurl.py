@@ -40,12 +40,12 @@ with open('googledomain.txt', "r") as f:
 
 
 servis = wservice[0]
-# print(translate_service('ini adalah kata yang akan diterjemahkan', 'id', 'en',servis))
+print(translate_service('ini adalah kata yang akan diterjemahkan tanpa servis', 'id', 'en'))
 # print(str(servis))
 
 while True:
     try:
-        print(translate_service('ini adalah kata yang akan diterjemahkan', 'id', 'en', servis))
+        print(translate_service('ini adalah kata yang akan diterjemahkan dengan servis', 'id', 'en', servis))
     except Exception as e:
         print(str(e))
         wservice.rotate(1)
