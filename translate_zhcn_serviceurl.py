@@ -1,5 +1,5 @@
 # import goslate
-from translasi import  translate_service
+from translasi import translate_service
 import sqlite3
 import urllib
 from collections import deque
