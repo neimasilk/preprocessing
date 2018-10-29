@@ -35,7 +35,7 @@ sql = ''' UPDATE id_zhcn
 wservice = deque()
 with open('googledomain.txt', "r") as f:
     for gdomain in f:
-        line = 'http://translate.'+gdomain
+        line = 'https://translate.'+gdomain
         wservice.append(line.strip())
 
 
