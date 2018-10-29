@@ -73,7 +73,7 @@ for id in textnya:
                 print(str(e))
                 print(wservice[0])
                 wservice.rotate(1)
-                continue
+                # continue
             break
             wservice.rotate(1)
             servis = wservice[0]
