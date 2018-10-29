@@ -8,7 +8,7 @@ import shlex
 def translate_service(text, source, target, service=''):
     item = text
     if service=='':
-        a = 'http://translate.google.cn'
+        a = 'http://translate.google.com'
         translator = goslate.Goslate(service_urls=(a,))
     else:
         translator = goslate.Goslate(service_urls=(service,))
