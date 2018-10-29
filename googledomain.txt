@@ -83,7 +83,6 @@ google.com.tr
 google.com.tw
 google.com.ua
 google.com.uy
-google.com.uz
 google.com.vc
 google.com.vn
 google.cz
@@ -126,7 +125,6 @@ google.no
 google.nr
 google.nu
 google.off.ai
-google.org
 google.pl
 google.pn
 google.pt
@@ -142,13 +140,8 @@ google.sm
 google.sn
 google.tm
 google.to
-google.tp
 google.tt
-google.tv
-google.uz
 google.vg
 google.vu
 google.ws
-gooogle.com
 google.ae
-
