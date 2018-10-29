@@ -1,19 +1,20 @@
-import goslate
+# import goslate
+from translasi import translate_service
 import sqlite3
 import urllib
 from collections import deque
 import subprocess
 import shlex
 
-def translate_service(text, source, target, service=''):
-    item = text
-    if service=='':
-        a = 'http://translate.google.com'
-        translator = goslate.Goslate(service_urls=(a,))
-    else:
-        translator = goslate.Goslate(service_urls=(service,))
-    translation = translator.translate(item, target, source)
-    return translation
+# def translate_service(text, source, target, service=''):
+#     item = text
+#     if service=='':
+#         a = 'http://translate.google.com'
+#         translator = goslate.Goslate(service_urls=(a,))
+#     else:
+#         translator = goslate.Goslate(service_urls=(service,))
+#     translation = translator.translate(item, target, source)
+#     return translation
 
 
 filepath = 'indonesia_sentences_1000000.db'
