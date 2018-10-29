@@ -8,7 +8,7 @@ import shlex
 def translate_service(text, source, target, service=''):
     item = text
     if service=='':
-        a = 'https://translate.google.cn'
+        a = 'http://translate.google.cn'
         translator = goslate.Goslate(service_urls=(a,))
     else:
         translator = goslate.Goslate(service_urls=(service,))
@@ -35,7 +35,7 @@ sql = ''' UPDATE id_zhcn
 wservice = deque()
 with open('googledomain.txt', "r") as f:
     for gdomain in f:
-        line = 'https://translate.'+gdomain
+        line = 'http://translate.'+gdomain
         wservice.append(line.strip())
 
 
