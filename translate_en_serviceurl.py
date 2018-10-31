@@ -26,11 +26,11 @@ except Exception as e:
 
 sentences = []
 db_cur.execute(
-    "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_en_id is NULL) or (text_id is NULL) ")
+    "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_zhcn is NULL) or (text_id is NULL) ")
 textnya = db_cur.fetchall()
 
 sql = ''' UPDATE id_zhcn
-          SET text_en_id = ?, text_id=?
+          SET text_zhcn = ?, text_id=?
           WHERE id = ? '''
 
 wservice = deque()
@@ -56,20 +56,20 @@ while True:
 
 
 for id in textnya:
-    if (id[1] == None) or (id[2] == None):
+    if (id[1] == None) or (id[3] == None):
         idnya = id[0]
-        teks = id[3]
+        teks = id[2]
         while True:
             try:
-                if (id[2] == None):
-                    arti_en = translate_service(teks, 'zh-CN', 'en', servis)
-                else:
-                    arti_en = id[2]
-
                 if (id[1] == None):
-                    arti_id = translate_service(arti_en, 'en', 'id', servis)
+                    arti_id = translate_service(teks, 'en', 'id', servis)
                 else:
                     arti_id = id[1]
+
+                if (id[3] == None):
+                    arti_zhcn = translate_service(arti_id, 'en', 'zh-CN', servis)
+                else:
+                    arti_zhcn = id[3]
             except Exception as e:
                 print(str(e))
                 print(wservice[0])
@@ -78,7 +78,7 @@ for id in textnya:
             break
         wservice.rotate(1)
         servis = wservice[0]
-        db_cur.execute(sql, [arti_en, arti_id, idnya])
+        db_cur.execute(sql, [arti_zhcn, arti_id, idnya])
         db_connection.commit()
         print(idnya)
 

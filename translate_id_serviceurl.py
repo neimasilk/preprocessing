@@ -61,14 +61,14 @@ for id in textnya:
         while True:
             try:
                 if (id[2] == None):
-                    artinya = translate_service(teks, 'id', 'en', servis)
+                    arti_en = translate_service(teks, 'id', 'en', servis)
                 else:
-                    artinya = id[2]
+                    arti_en = id[2]
 
                 if (id[3] == None):
-                    articn = translate_service(artinya, 'en', 'zh-CN', servis)
+                    arti_cn = translate_service(arti_en, 'en', 'zh-CN', servis)
                 else:
-                    articn = id[3]
+                    arti_cn = id[3]
             except Exception as e:
                 print(str(e))
                 print(wservice[0])
@@ -77,7 +77,7 @@ for id in textnya:
             break
         wservice.rotate(1)
         servis = wservice[0]
-        db_cur.execute(sql, [artinya, articn, idnya])
+        db_cur.execute(sql, [arti_en, arti_cn, idnya])
         db_connection.commit()
         print(idnya)
 
