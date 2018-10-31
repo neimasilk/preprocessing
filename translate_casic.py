@@ -1,4 +1,4 @@
 from translate_en_serviceurl import translate_en
 
-filepath = 'casic.db'
+filepath = 'casict.db'
 translate_en(filepath)

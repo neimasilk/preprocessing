@@ -1,23 +1,11 @@
-# import goslate
 from translasi import translate_service
 import sqlite3
-import urllib
 from collections import deque
-import subprocess
-import shlex
 
 
-
-
-
-def translate_en(filedb):
-    try:
-        db_connection = sqlite3.connect(filepath)
-        db_cur = db_connection.cursor()
-    except Exception as e:
-        print(e)
-
-    sentences = []
+def translate_en(filepath):
+    db_connection = sqlite3.connect(filepath)
+    db_cur = db_connection.cursor()
     db_cur.execute(
         "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_zhcn is NULL) or (text_id is NULL) ")
     textnya = db_cur.fetchall()
@@ -78,5 +66,5 @@ def translate_en(filedb):
     db_connection.close()
 
 if __name__ == '__main__':
-    filepath = 'casic.db'
-    translate_en(filepath)
+    filedb = 'casict.db'
+    translate_en(filedb)
