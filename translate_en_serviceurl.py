@@ -6,80 +6,77 @@ from collections import deque
 import subprocess
 import shlex
 
-# def translate_service(text, source, target, service=''):
-#     item = text
-#     if service=='':
-#         a = 'http://translate.google.cn'
-#         translator = goslate.Goslate(service_urls=(a,))
-#     else:
-#         translator = goslate.Goslate(service_urls=(service,))
-#     translation = translator.translate(item, target, source)
-#     return translation
 
 
-filepath = 'mandarin_sentences_1000000.db'
-try:
-    db_connection = sqlite3.connect(filepath)
-    db_cur = db_connection.cursor()
-except Exception as e:
-    print(e)
-
-sentences = []
-db_cur.execute(
-    "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_zhcn is NULL) or (text_id is NULL) ")
-textnya = db_cur.fetchall()
-
-sql = ''' UPDATE id_zhcn
-          SET text_zhcn = ?, text_id=?
-          WHERE id = ? '''
-
-wservice = deque()
-with open('googledomain.txt', "r") as f:
-    for gdomain in f:
-        line = 'http://translate.'+gdomain
-        wservice.append(line.strip())
 
 
-servis = wservice[0]
-print(translate_service('ini adalah kata yang akan diterjemahkan tanpa servis', 'id', 'en'))
-# print(str(servis))
-
-while True:
+def translate_en(filedb):
     try:
-        print(translate_service('ini adalah kata yang akan diterjemahkan dengan servis', 'id', 'en', servis))
+        db_connection = sqlite3.connect(filepath)
+        db_cur = db_connection.cursor()
     except Exception as e:
-        print(str(e))
-        wservice.rotate(1)
-        servis = wservice[0]
-        continue
-    break
+        print(e)
+
+    sentences = []
+    db_cur.execute(
+        "select id, text_id, text_en_id, text_zhcn from id_zhcn where (text_zhcn is NULL) or (text_id is NULL) ")
+    textnya = db_cur.fetchall()
+
+    sql = ''' UPDATE id_zhcn
+              SET text_zhcn = ?, text_id=?
+              WHERE id = ? '''
+
+    wservice = deque()
+    with open('googledomain.txt', "r") as f:
+        for gdomain in f:
+            line = 'http://translate.'+gdomain
+            wservice.append(line.strip())
 
 
-for id in textnya:
-    if (id[1] == None) or (id[3] == None):
-        idnya = id[0]
-        teks = id[2]
-        while True:
-            try:
-                if (id[1] == None):
-                    arti_id = translate_service(teks, 'en', 'id', servis)
-                else:
-                    arti_id = id[1]
+    servis = wservice[0]
+    print(translate_service('ini adalah kata yang akan diterjemahkan tanpa servis', 'id', 'en'))
+    # print(str(servis))
 
-                if (id[3] == None):
-                    arti_zhcn = translate_service(arti_id, 'en', 'zh-CN', servis)
-                else:
-                    arti_zhcn = id[3]
-            except Exception as e:
-                print(str(e))
-                print(wservice[0])
-                wservice.rotate(1)
-                # continue
-            break
-        wservice.rotate(1)
-        servis = wservice[0]
-        db_cur.execute(sql, [arti_zhcn, arti_id, idnya])
-        db_connection.commit()
-        print(idnya)
+    while True:
+        try:
+            print(translate_service('ini adalah kata yang akan diterjemahkan dengan servis', 'id', 'en', servis))
+        except Exception as e:
+            print(str(e))
+            wservice.rotate(1)
+            servis = wservice[0]
+            continue
+        break
 
-db_connection.close()
+
+    for id in textnya:
+        if (id[1] == None) or (id[3] == None):
+            idnya = id[0]
+            teks = id[2]
+            while True:
+                try:
+                    if (id[1] == None):
+                        arti_id = translate_service(teks, 'en', 'id', servis)
+                    else:
+                        arti_id = id[1]
+
+                    if (id[3] == None):
+                        arti_zhcn = translate_service(arti_id, 'en', 'zh-CN', servis)
+                    else:
+                        arti_zhcn = id[3]
+                except Exception as e:
+                    print(str(e))
+                    print(wservice[0])
+                    wservice.rotate(1)
+                    # continue
+                break
+            wservice.rotate(1)
+            servis = wservice[0]
+            db_cur.execute(sql, [arti_zhcn, arti_id, idnya])
+            db_connection.commit()
+            print(idnya)
+
+    db_connection.close()
+
+if __name__ == '__main__':
+    filepath = 'casic.db'
+    translate_en(filepath)
